@@ -3,7 +3,7 @@ import { objectValues, isPrimitive } from "../../../constants/register-table";
 
 
 const Row = ({ item }: any) => (
-    <tr id={item} className={`
+    <tr key={item} className={`
     text-2xl
     odd:bg-tl-grey
     even:bg-tl-light-grey
@@ -11,7 +11,7 @@ const Row = ({ item }: any) => (
 `}>
 
         {objectValues(item).map((entry) => (
-            <td id={entry} className={`
+            <td key={entry} className={`
                     border
                     rounded-md
                     
