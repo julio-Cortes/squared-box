@@ -17,3 +17,8 @@ export const IconContainer = tw.div`
     cursor-pointer
     
 `
+export const NavigationContainer = tw.div`
+    border
+    text-lg
+    p-2
+`

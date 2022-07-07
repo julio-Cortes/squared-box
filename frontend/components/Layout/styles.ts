@@ -8,6 +8,7 @@ export const Container = tw.div`
     w-full
     color
     text-white
+    bg-dark-green
 ` 
 export const Content = tw.div`
     flex

@@ -10,7 +10,6 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
     const [isOpened, setOpened] = useState(false);
-
     const toggleSidebar= () => {
         setOpened((prev) => !prev);
     }
