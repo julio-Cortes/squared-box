@@ -17,4 +17,9 @@ export const Content = tw.div`
 export const PageContainer = tw.div`
     p-5
     w-4/5
+    mx-auto
+    h-full
+    justify-center
+    items-center
+
 `

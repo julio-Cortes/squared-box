@@ -13,10 +13,8 @@ class RegistersView(FlaskView):
 
     def get(self):
         args = request.args.to_dict()
-        from_date, to_date = args['from'], args['to']
+        date = args['date']
         is_sypra = args['is_sypra'] == "true"
-        from_date = from_date.split("-")
-        from_date_formatted = from_date[0] + "-" + from_date[2] + "-" + from_date[1]
-        to_date = to_date.split("-")
-        to_date_formatted = to_date[0] + "-" + to_date[2] + "-" + to_date[1]
-        return self.register_repository.get_registers(from_date_formatted, to_date_formatted, is_sypra)
+        date = date.split("-")
+        day, month, year = date[2], date[1], date[0]
+        return self.register_repository.get_registers(day, month, year, is_sypra)

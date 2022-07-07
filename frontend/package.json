@@ -7,10 +7,11 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "export":"next export"
+    "export": "next export"
   },
   "dependencies": {
     "@styled-icons/material": "^10.34.0",
+    "formik": "^2.2.9",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

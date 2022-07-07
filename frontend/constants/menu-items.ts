@@ -4,6 +4,7 @@ import { Lock  } from '@styled-icons/material/Lock'
 import { AccountBalance  } from '@styled-icons/material/AccountBalance'
 import { AdminPanelSettings  } from '@styled-icons/material/AdminPanelSettings'
 import { Pending  } from '@styled-icons/material/Pending'
+import { Summarize  } from '@styled-icons/material/Summarize';
 
 type MenuOption = {
     name: string,
@@ -48,7 +49,7 @@ const MENU_OPTIONS: MenuOption[] = [
     },
     {
         name: "Informes",
-        icon: AdminPanelSettings,
+        icon: Summarize,
         url: '/reports'
     }
 ]

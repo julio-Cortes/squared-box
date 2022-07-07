@@ -26,9 +26,10 @@ class RegisterRepository(object):
             return vendors
         return {}
 
-    def get_registers(self, from_date, to_date, is_sypra):
+    def get_registers(self, day,month, year, is_sypra):
         vendors = self.get_vendors()
         query = f'''
+
         SELECT mlocal.id_local, tipo_doc,id_vendedor,nro_caja,Convert(date, fecha) as fecha,
                SUM(pago_efectivo - vuelto) as efectivo, SUM(pago_cheque) as pago_cheque, SUM(pago_t_debito) as t_debito,
                SUM(pago_t_credito) as t_credito,       SUM(pago_t_propia) as t_propia, SUM(pago_cupon) as pago_cupon,
@@ -37,8 +38,7 @@ class RegisterRepository(object):
                SUM(monto_sub_medio) as sb_1, SUM(monto_sub_medio2) as sb_2, SUM(monto_sub_medio3) as sb_3, SUM(monto_sub_medio4) as sb_4,
                mlocal.nombre
         from ventas_boleta_cabecera inner join mlocal on mlocal.id_local=ventas_boleta_cabecera.id_local
-        where fecha between '{from_date}' and '{to_date}'
-                                          group by mlocal.nombre,id_vendedor,nro_caja, tipo_doc,Convert(date, fecha), 
+        where day(fecha)={day} and month(fecha)={month} and year(fecha)={year}                               group by mlocal.nombre,id_vendedor,nro_caja, tipo_doc,Convert(date, fecha),
                                           mlocal.id_local, sub_medio4, sub_medio3, sub_medio2, sub_medio ;
 
                 '''
@@ -53,13 +53,13 @@ class RegisterRepository(object):
             registers = []
             for row in rows:
                 if len(row) > 0:
-                    pk = f'{row[0]}-{row[2]}-{row[3]}-{row[4]}'
-                    found_dict = list(filter(lambda register: register['pk'] == pk, registers))
+                    id = f'{row[0]}-{row[2]}-{row[3]}-{row[4]}'
+                    found_dict = list(filter(lambda register: register['id'] == id, registers))
                     splited_date = row[4].split("-")
                     row[4] = splited_date[2] + "-" + splited_date[1] + "-" + splited_date[0]
                     if len(found_dict) == 0:
                         registers.append({
-                            'pk': pk,
+                            'id': id,
                             'vendedor': vendors[row[2]] if row[2] in vendors else 'Vendedor no encontrado',
                             'vendedor_id': row[2],
                             'nro_caja': row[3],
@@ -103,7 +103,7 @@ class RegisterRepository(object):
                             "localName": row[-1]
 
                         })
-                        found_dict = list(filter(lambda register: register['pk'] == pk, registers))
+                        found_dict = list(filter(lambda register: register['id'] == id, registers))
                     if row[1] == 2:
                         self.map_cupon(row, found_dict[0])
                     else:
