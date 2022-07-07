@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, make_response, url_for
 from controllers.RegistersView import RegistersView
 from controllers.UsersView import UsersView
 from flask_cors import CORS
-
+wsgi_app = app.wsgi_app
 app = Flask(__name__)
 CORS(app)
 user_controller = UsersView()

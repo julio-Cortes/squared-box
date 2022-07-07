@@ -16,6 +16,11 @@ const Sidebar = ({ isOpened }: SidebarProps) => {
                 </SidebarContainer>
         )
     }
+    else {
+        return (
+            <></>
+        )
+    }
 
 
 }
