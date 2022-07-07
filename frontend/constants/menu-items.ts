@@ -45,8 +45,12 @@ const MENU_OPTIONS: MenuOption[] = [
         name: "Administracion",
         icon: AdminPanelSettings,
         url: '/admin'
+    },
+    {
+        name: "Informes",
+        icon: AdminPanelSettings,
+        url: '/reports'
     }
-
 ]
 
 export type MenuItem = {
