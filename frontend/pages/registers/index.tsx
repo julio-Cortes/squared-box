@@ -1,7 +1,7 @@
 import { Tab } from "@styled-icons/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Auth from "../../components/Auth";
+import Auth, { AuthProps } from "../../components/Auth";
 import Layout from "../../components/Layout";
 import Table from "../../components/Table";
 import { locals, GetCurrentDate, PrimitiveType, ColumnsForRegister } from "../../constants/register-table";
@@ -42,13 +42,13 @@ const Registers = () => {
     useEffect(() => {
         if (!router.isReady || dateInterval == "") return;
         let is_sypra = dropdown == "Sypra" ? true : false
-
+        console.log(process.env.REACT_APP_URL_BASE)
         fetch(`${process.env.REACT_APP_URL_BASE}/registers?date=${dateInterval}&is_sypra=${is_sypra}`)
             .then(res => res.json())
             .then(data => {
                 setRegisters(data)
             })
-    }, [dropdown, dateInterval])
+    }, [dropdown, dateInterval, router.isReady])
 
     return (
         <Layout>
@@ -83,4 +83,4 @@ export interface CheckInterface {
     type: number,
     total: number
 }
-export default Registers;
+export default  Registers;

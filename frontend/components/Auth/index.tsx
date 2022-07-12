@@ -1,32 +1,37 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-type AuthProps = {
-    WrappedComponent: React.ReactNode,
-    allowedRoles: number[]
+export type AuthProps = {
+    WrappedComponent: () => JSX.Element,
+    allowedRoles: string[]
 }
 
-const Auth = ({WrappedComponent, allowedRoles}:AuthProps) => {
-    const [loading, setLoading]= useState(true)
+const Auth = ({ WrappedComponent, allowedRoles }: AuthProps) => {
+    const router = useRouter();
     useEffect(() => {
-        const role = 1;
-        const router = useRouter();
-        if (allowedRoles.includes(role)){
+        if (!router.isReady) return;
+        const role = "Admin";
+
+        if (allowedRoles.includes(role)) {
             setLoading(false)
         }
-        else{
+        else {
             router.push('/registers')
         }
-    },[])
-    if (loading){
+    }, [router.isReady, allowedRoles])
+    if (!router.isReady) {
         return <></>
     }
-    else{
-        return {WrappedComponent}
+    else {
+        return (
+            <div>
+                {WrappedComponent}
+            </div>
+        )
     }
-    
 
-    
+
+
 }
 
 
