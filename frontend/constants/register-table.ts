@@ -1,3 +1,5 @@
+import React from "react";
+
 export const ColumnsForRegister = {
     id: "Id",
     vendedor: 'Vendedor',
@@ -19,6 +21,7 @@ export type TableHeaders<T extends MinTableItem> = Record<keyof T, string>
 export interface TableProps<T extends MinTableItem> {
     items: T[];
     headers: TableHeaders<T>;
+    handleClick: (item:T) => void;
 }
 
 export function objectValues<T extends {}>(obj: T) {

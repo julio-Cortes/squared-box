@@ -11,14 +11,19 @@
   },
   "dependencies": {
     "@styled-icons/material": "^10.34.0",
+    "cookies-next": "^2.1.1",
+    "dotenv": "^16.0.1",
     "formik": "^2.2.9",
+    "js-cookie": "^3.0.1",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-toastify": "^9.0.5",
     "styled-components": "^5.3.5",
     "tailwind-styled-components": "^2.1.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.0.1",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.6",

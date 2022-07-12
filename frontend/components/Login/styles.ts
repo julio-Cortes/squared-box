@@ -18,7 +18,9 @@ export const FormContainer = tw.div`
     text-2xl
     h-auto
     p-6
+    py-12
 
+    bg-cyphrus
 `
 export const FormItem = tw.div`
     m-2

@@ -1,64 +1,76 @@
-CREATE TABLE sq_roles(
+CREATE TABLE sqb_roles(
     id int PRIMARY KEY IDENTITY,
     descripcion varchar(50)
-
 )
 
-CREATE TABLE sq_users(
+insert into sqb_roles (descripcion) values ('Cuadratura en local')
+insert into sqb_roles (descripcion) values ('Cuadratura en Central')
+insert into sqb_roles (descripcion) values ('Administrador')
+
+CREATE TABLE sqb_users(
     id int PRIMARY KEY IDENTITY,
     email varchar(50),
     password varchar(50),
-    role_id int FOREIGN key references sq_roles(id),
+    role_id int FOREIGN key references sqb_roles(id),
     fecha_creacion datetime default  GETDATE(),
     fecha_ultima_modificacion datetime,
 )
 
-CREATE TAble sq_estado(
+CREATE TAble sqb_estado(
     id int PRIMARY KEY IDENTITY,
     descripcion varchar(50),
 
 );
-INSERT INTO sq_estado(descripcion) values ('pendiente')
-INSERT INTO sq_estado(descripcion) values ('cerrada')
 
-CREATE TABLE sq_ventas_boleta_cabecera(
-    id int PRIMARY KEY IDENTITY,
-    id_local int,
-    nro_caja int,
-    tipo_doc int,
-    nro_boleta int,
-    id_vendedor int,
-    fecha_caja datetime,
-    electronica smallint,
-    traspasado smallint,
+INSERT INTO sqb_estado(descripcion) values ('en curso')
+INSERT INTO sqb_estado(descripcion) values ('cerrada')
+
+CREATE TABLE sqb_cuadre(
+    id_local int   ,
+    numero_caja int   ,
+    id_vendedor int   ,
+    fecha_caja datetime   ,
     total int,
-    efectivo int,
-    cheque int,
-    venta_nula int,
-    cigarros int,
-    depositos int,
-    estado int foreign key references sq_estado(id),
-    fecha_creacion datetime default  GETDATE(),
-    fecha_ultima_modificacion datetime,
-    --FOREIGN KEY (id_local, nro_caja,tipo_doc, nro_boleta, id_vendedor,fecha_caja, electronica, traspasado) references ventas_boleta_cabecera(id_local, nro_caja, tipo_doc, nro_boleta, id_vendedor, fecha, electronica, traspasado)
+    efectivo_cuadre int,
+    efectivo_real int,
+    cigarros_cuadre int,
+    cigarros_real int,
+    debito_cuadre int,
+    debito_real int,
+    credito_cuadre int,
+    credito_real int,
+    estado int foreign key references sqb_estado(id),
+    primary key (id_local, numero_caja, id_vendedor,fecha_caja)
 
 );
-
-CREATE TABLE sq_sodexo(
+CREATE TABLE sqb_bancos(
     id int PRIMARY KEY IDENTITY,
+    descripcion varchar(50),
+);
+
+CREATE TABLE sqb_sodexo(
+    id int PRIMARY KEY IDENTITY,
+    cantidad int,
     monto int,
     id_cliente int,
-)
+    id_local int ,
+    numero_caja int ,
+    id_vendedor int,
+    fecha_caja datetime,
+    foreign key (id_local, numero_caja, id_vendedor, fecha_caja) references sqb_cuadre(id_local, numero_caja, id_vendedor, fecha_caja)
+);
 
-CREATE TABLE sq_deposito(
+CREATE TABLE sqb_deposito(
     id int PRIMARY KEY IDENTITY,
     monto int,
     id_cliente int,
     fecha_creacion datetime default  GETDATE(),
     fecha_deposito datetime,
-    banco int,
-)
-CREATE TABLE sq_bancos(
-    id int PRIMARY KEY IDENTITY,
-        descripcion varchar(50),
-)
+    banco int foreign  key references sqb_bancos(id),
+    id_local int null ,
+    numero_caja int null ,
+    id_vendedor int null ,
+    fecha_caja datetime null ,
+    foreign key (id_local, numero_caja, id_vendedor, fecha_caja) references sqb_cuadre(id_local, numero_caja, id_vendedor, fecha_caja)
+);
+

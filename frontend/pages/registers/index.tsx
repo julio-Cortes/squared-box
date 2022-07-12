@@ -1,6 +1,7 @@
 import { Tab } from "@styled-icons/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Auth from "../../components/Auth";
 import Layout from "../../components/Layout";
 import Table from "../../components/Table";
 import { locals, GetCurrentDate, PrimitiveType, ColumnsForRegister } from "../../constants/register-table";
@@ -34,12 +35,15 @@ const Registers = () => {
     const [dropdown, setDropdown] = useState(locals[0]);
     const [registers, setRegisters] = useState<Array<RegisterProp>>([]);
     const [dateInterval, setDateInterval] = useState(GetCurrentDate())
+    const handleClickRow = (row: RegisterPropForView) => {
+
+    }
     const router = useRouter()
     useEffect(() => {
         if (!router.isReady || dateInterval == "") return;
         let is_sypra = dropdown == "Sypra" ? true : false
 
-        fetch(`http://localhost:5000/registers?date=${dateInterval}&is_sypra=${is_sypra}`)
+        fetch(`${process.env.REACT_APP_URL_BASE}/registers?date=${dateInterval}&is_sypra=${is_sypra}`)
             .then(res => res.json())
             .then(data => {
                 setRegisters(data)
@@ -48,7 +52,8 @@ const Registers = () => {
 
     return (
         <Layout>
-            <Table headers={ColumnsForRegister} items={CastRegisterAsViews(registers)} />
+            
+            <Table handleClick={handleClickRow} headers={ColumnsForRegister} items={CastRegisterAsViews(registers)} />
         </Layout>
     )
 }

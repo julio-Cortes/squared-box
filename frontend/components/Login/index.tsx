@@ -2,7 +2,11 @@
 import { Router, useRouter } from "next/router";
 import { FormikHelpers, Formik, Form, Field } from "formik";
 import { FormContainer, FormItem, LoginContainer } from "./styles";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie'
+import { getCookie, setCookie } from "cookies-next";
+import { useEffect } from "react";
 
 type LoginFormValues = {
     email: string,
@@ -11,8 +15,41 @@ type LoginFormValues = {
 
 const Login = () => {
     const router = useRouter();
+
+    useEffect (()=>{
+        const token  = getCookie('token');
+        if (token){
+            router.push('/registers')
+        }
+
+    })
     const onSubmit = (values: LoginFormValues) => {
-        router.push('registers')
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email:values.email, password:values.password })
+        };
+        console.log(process.env.REACT_APP_URL_BASE)
+        fetch(`${process.env.REACT_APP_URL_BASE}/users/login`, requestOptions)
+            .then(response => {
+                if (response.status == 200){
+                    return response.json()
+                }
+                else{
+                    toast('Credenciales incorrectas!')
+                    return undefined
+                }
+            })
+            .then(data => {
+                if (data){
+                    toast('Ingreso correcto!')
+                    setCookie('token', data.token);
+                    router.push('registers')
+                }
+
+
+            });
+        //
 
     }
 

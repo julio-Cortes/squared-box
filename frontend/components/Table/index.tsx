@@ -5,10 +5,14 @@ import Row from "./Row";
 
 
 function Table<T extends MinTableItem>(props: TableProps<T>) {
+    
+
     return (
         <table className={'table-auto w-full '}>
             <thead>
-                <tr  className={'bg-tl-grey border rounded-md'}>
+                <tr  className={`
+                bg-tl-grey border rounded-md hover:cursor-default
+                `}>
                     {objectValues(props.headers).map((header) => (
                         <th key={header} className={'border rounded-md text-2xl'}>{header}</th>
                     ))}
@@ -16,7 +20,7 @@ function Table<T extends MinTableItem>(props: TableProps<T>) {
             </thead>
             <tbody>
                 {props.items.map((item) => (
-                    <Row key={item.id} item={item} />
+                    <Row onClick={props.handleClick} key={item.id} item={item} />
                 ))}
             </tbody>
         </table>

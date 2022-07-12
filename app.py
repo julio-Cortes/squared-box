@@ -1,11 +1,16 @@
+import os
+
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, make_response, url_for, send_from_directory
 
 from controllers.RegistersView import RegistersView
 from controllers.UsersView import UsersView
 from flask_cors import CORS
 
-app = Flask(__name__, static_url_path='', static_folder="frontend/out")
 
+load_dotenv()
+app = Flask(__name__, static_url_path='', static_folder="frontend/out")
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 CORS(app)
 user_controller = UsersView()
 

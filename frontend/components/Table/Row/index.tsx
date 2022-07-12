@@ -4,7 +4,7 @@ import { objectValues, isPrimitive } from "../../../constants/register-table";
 
 const Row = ({ item }: any) => (
     <tr key={item} className={`
-    text-2xl
+    text-lg
     odd:bg-tl-grey
     even:bg-tl-light-grey
    hover:bg-gray-400
