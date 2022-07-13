@@ -31,7 +31,6 @@ interface RegisterPropForView{
     localName: string
 }
 function CastRegisterAsViews( registers:RegisterProp[]){
-    console.log( registers.map( r => r as RegisterPropForView))
     return registers.map( r => r as RegisterPropForView)
 }
 const Registers = () => {
@@ -48,7 +47,6 @@ const Registers = () => {
 
         fetch(`${process.env.REACT_APP_URL_BASE}/squared-registers/`, requestOptions)
         .then(response => {
-            console.log(response)
             if (response.status == 200){
                 router.push(`registers/${row.id}`)
             }
@@ -63,7 +61,6 @@ const Registers = () => {
         setRegisters([])
         if (!router.isReady || dateInterval.from == "" || dateInterval.to == "") return;
         let is_sypra = dropdown == "Sypra" ? true : false
-        console.log(process.env.REACT_APP_URL_BASE)
         fetch(`${process.env.REACT_APP_URL_BASE}/registers?from=${dateInterval.from}&to=${dateInterval.to}&is_sypra=${is_sypra}`)
             .then(res => res.json())
             .then(data => {

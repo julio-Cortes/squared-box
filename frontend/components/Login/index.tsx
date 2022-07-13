@@ -29,7 +29,7 @@ const Login = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email:values.email, password:values.password })
         };
-        console.log(process.env.REACT_APP_URL_BASE)
+
         fetch(`${process.env.REACT_APP_URL_BASE}/users/login`, requestOptions)
             .then(response => {
                 if (response.status == 200){
