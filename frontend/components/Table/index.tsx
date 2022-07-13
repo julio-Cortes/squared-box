@@ -5,7 +5,6 @@ import Row from "./Row";
 
 
 function Table<T extends MinTableItem>(props: TableProps<T>) {
-    
 
     return (
         <table className={'table-auto w-full '}>
@@ -20,7 +19,7 @@ function Table<T extends MinTableItem>(props: TableProps<T>) {
             </thead>
             <tbody>
                 {props.items.map((item) => (
-                    <Row onClick={props.handleClick} key={item.id} item={item} />
+                    <Row item={item} handleClick={props.handleClick} />
                 ))}
             </tbody>
         </table>

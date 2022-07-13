@@ -1,7 +1,8 @@
 import { Tab } from "@styled-icons/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Auth, { AuthProps } from "../../components/Auth";
+import { toast } from "react-toastify";
+
 import Layout from "../../components/Layout";
 import Table from "../../components/Table";
 import { locals, GetCurrentDate, PrimitiveType, ColumnsForRegister } from "../../constants/register-table";
@@ -35,7 +36,24 @@ const Registers = () => {
     const [dropdown, setDropdown] = useState(locals[0]);
     const [registers, setRegisters] = useState<Array<RegisterProp>>([]);
     const [dateInterval, setDateInterval] = useState(GetCurrentDate())
-    const handleClickRow = (row: RegisterPropForView) => {
+    const handleClickRow = (row: RegisterProp) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'},
+            body: JSON.stringify({ squared_register:row })
+        };
+
+        fetch(`${process.env.REACT_APP_URL_BASE}/squared-registers/`, requestOptions)
+        .then(response => {
+            console.log(response)
+            if (response.status == 200){
+                router.push(`registers/${row.id}`)
+            }
+            else{
+                toast('Ups algo salio mal creando la caja, intentalo nuevamente')
+            }
+        })
 
     }
     const router = useRouter()

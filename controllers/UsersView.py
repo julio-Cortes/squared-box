@@ -10,7 +10,6 @@ from repositories.UserRepository import UserRepository, generate_jwt
 
 class UsersView(FlaskView):
     def __init__(self):
-        self.db_interface = DbConnector()
         self.user_repository = UserRepository()
 
     @route("/login", methods=["POST"])

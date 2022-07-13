@@ -19,3 +19,11 @@ class SquaredRegistersRepository(object):
         else:
             rows = self.db_interface.estrella_query(query, returnable=True)
         return rows
+
+    def post(self, squared_register):
+        print (squared_register)
+
+        #if squared_register.empresa == 1:
+         #   rows = self.db_interface.sypra_query(query, returnable=True)
+        #else:
+        #    rows = self.db_interface.estrella_query(query, returnable=True)

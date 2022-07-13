@@ -1,26 +1,31 @@
 import { objectValues, isPrimitive } from "../../../constants/register-table";
 
+type RowProps = {
+    item: any;
+    handleClick: (t: any) => void;
+}
 
-
-const Row = ({ item }: any) => (
-    <tr key={item} className={`
+const Row = ({ item, handleClick }: RowProps) => {
+    return (
+        <tr key={item} className={`
     text-lg
     odd:bg-tl-grey
     even:bg-tl-light-grey
    hover:bg-gray-400
 `}>
 
-        {objectValues(item).map((entry) => (
-            <td key={entry} className={`
-                    border
+            {objectValues(item).map((entry) => (
+                <td key={entry} onClick={() => handleClick(item)} className={`
+            hadnleClickRow
                     rounded-md
                     
                 `}>
-                {isPrimitive(entry) ? entry : ''}
-            </td>
-        ))}
+                    {isPrimitive(entry) ? entry : ''}
+                </td>
+            ))}
 
-    </tr>
-)
+        </tr>
+    )
+}
 
 export default Row

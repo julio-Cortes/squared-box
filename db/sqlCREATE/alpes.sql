@@ -4,7 +4,8 @@ CREATE TABLE sqb_roles(
 )
 
 insert into sqb_roles (descripcion) values ('Administrador')
-insert into sqb_roles (descripcion) values ('Cuadratura en local')
+insert into sqb_roles (descripcion) values ('Cuadratura sin deposito')
+insert into sqb_roles (descripcion) values ('Cuadratura con deposito')
 insert into sqb_roles (descripcion) values ('Cuadratura en Central')
 
 CREATE TABLE sqb_users(
@@ -51,8 +52,8 @@ CREATE TABLE sqb_cuadre(
     credito_real int,
     estado int foreign key references sqb_estado(id),
     primary key (id_local, numero_caja, id_vendedor,fecha_caja)
-
 );
+
 CREATE TABLE sqb_bancos(
     id int PRIMARY KEY IDENTITY,
     descripcion varchar(50),
