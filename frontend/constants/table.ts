@@ -14,10 +14,7 @@ export function objectValues<T extends {}>(obj: T, avoidColumns?: string[]) {
     array = array.filter(Boolean);
     return array
 
-
-
 }
-
 export type PrimitiveType = string | number | boolean;
 
 export function isPrimitive(value: any): value is PrimitiveType {

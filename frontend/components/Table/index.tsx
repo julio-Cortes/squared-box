@@ -20,7 +20,7 @@ function Table<T extends MinTableItem>(props: TableProps<T>) {
             </thead>
             <tbody>
                 {props.items.map((item) => (
-                    <Row avoidColumns={props.avoidColumns} item={item} handleClick={props.handleClick} />
+                    <Row avoidColumns={props.avoidColumns} item={item} key={item.toString()} handleClick={props.handleClick} />
                 ))}
             </tbody>
         </table>

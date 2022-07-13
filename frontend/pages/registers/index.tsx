@@ -6,7 +6,8 @@ import DatePicker from "../../components/DatePicker";
 
 import Layout from "../../components/Layout";
 import Table from "../../components/Table";
-import { locals, GetCurrentDate, PrimitiveType, ColumnsForRegister } from "../../constants/register-table";
+import { locals, GetCurrentDate, ColumnsForRegister } from "../../constants/register-table";
+import { PrimitiveType } from "../../constants/table";
 
 interface RegisterProp {
     local_id: number,
@@ -37,7 +38,7 @@ const Registers = () => {
     const [dropdown, setDropdown] = useState(locals[0]);
     const [registers, setRegisters] = useState<Array<RegisterProp>>([]);
     const [dateInterval, setDateInterval] = useState({from:GetCurrentDate(), to:GetCurrentDate(1)})
-    const handleClickRow = (row: RegisterProp) => {
+    const handleClickRow = (row: RegisterPropForView) => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',

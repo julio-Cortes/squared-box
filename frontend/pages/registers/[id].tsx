@@ -1,12 +1,10 @@
+import { Formik } from "formik"
 import Layout from "../../components/Layout"
 
 
 const RegisterId = () =>{
     return (
         <Layout>
-            <Formik>
-                
-            </Formik>
         </Layout>
     )
 }
