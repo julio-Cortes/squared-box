@@ -26,7 +26,7 @@ class RegisterRepository(object):
             return vendors
         return {}
 
-    def get_registers(self, day,month, year, is_sypra):
+    def get_registers(self, from_date, to_date, is_sypra):
         vendors = self.get_vendors()
         query = f'''
 
@@ -38,7 +38,7 @@ class RegisterRepository(object):
                SUM(monto_sub_medio) as sb_1, SUM(monto_sub_medio2) as sb_2, SUM(monto_sub_medio3) as sb_3, SUM(monto_sub_medio4) as sb_4,
                mlocal.nombre
         from ventas_boleta_cabecera inner join mlocal on mlocal.id_local=ventas_boleta_cabecera.id_local
-        where day(fecha)={day} and month(fecha)={month} and year(fecha)={year}                               group by mlocal.nombre,id_vendedor,nro_caja, tipo_doc,Convert(date, fecha),
+        where fecha between '{from_date}' and '{to_date}' group by mlocal.nombre,id_vendedor,nro_caja, tipo_doc,Convert(date, fecha),
                                           mlocal.id_local, sub_medio4, sub_medio3, sub_medio2, sub_medio ;
 
                 '''
@@ -108,7 +108,7 @@ class RegisterRepository(object):
                         self.map_cupon(row, found_dict[0])
                     else:
                         self.map_normal(row, found_dict[0])
-
+            registers = (sorted(registers, key=lambda d: d['localName']))
             return json.dumps(registers)
 
         return {"message": "Connection error"}, 500

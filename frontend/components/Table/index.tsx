@@ -1,4 +1,5 @@
-import { MinTableItem, objectValues, TableProps } from "../../constants/register-table";
+
+import { MinTableItem, TableProps, objectValues } from "../../constants/table";
 import Row from "./Row";
 
 
@@ -19,7 +20,7 @@ function Table<T extends MinTableItem>(props: TableProps<T>) {
             </thead>
             <tbody>
                 {props.items.map((item) => (
-                    <Row item={item} handleClick={props.handleClick} />
+                    <Row avoidColumns={props.avoidColumns} item={item} handleClick={props.handleClick} />
                 ))}
             </tbody>
         </table>

@@ -1,11 +1,13 @@
-import { objectValues, isPrimitive } from "../../../constants/register-table";
+import { isPrimitive, objectValues } from "../../../constants/table";
+
 
 type RowProps = {
     item: any;
     handleClick: (t: any) => void;
+    avoidColumns?: string[]
 }
 
-const Row = ({ item, handleClick }: RowProps) => {
+const Row = ({ item, handleClick, avoidColumns }: RowProps) => {
     return (
         <tr key={item} className={`
     text-lg
@@ -14,7 +16,7 @@ const Row = ({ item, handleClick }: RowProps) => {
    hover:bg-gray-400
 `}>
 
-            {objectValues(item).map((entry) => (
+            {objectValues(item, avoidColumns ).map((entry) => (
                 <td key={entry} onClick={() => handleClick(item)} className={`
             hadnleClickRow
                     rounded-md

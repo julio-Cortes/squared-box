@@ -28,13 +28,7 @@ const MENU_OPTIONS: MenuOption[] = [
                 name: "Cuadrandose",
                 icon: Pending,
                 url: '/registers/inProgress'
-            },
-            {
-                name: "Cerradas",
-                icon: Lock,
-                url: '/registers/inProgress'
-            },
-
+            }
         ]
     },
     {

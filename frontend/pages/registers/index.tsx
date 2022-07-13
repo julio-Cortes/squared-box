@@ -2,6 +2,7 @@ import { Tab } from "@styled-icons/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import DatePicker from "../../components/DatePicker";
 
 import Layout from "../../components/Layout";
 import Table from "../../components/Table";
@@ -30,12 +31,13 @@ interface RegisterPropForView{
     localName: string
 }
 function CastRegisterAsViews( registers:RegisterProp[]){
+    console.log( registers.map( r => r as RegisterPropForView))
     return registers.map( r => r as RegisterPropForView)
 }
 const Registers = () => {
     const [dropdown, setDropdown] = useState(locals[0]);
     const [registers, setRegisters] = useState<Array<RegisterProp>>([]);
-    const [dateInterval, setDateInterval] = useState(GetCurrentDate())
+    const [dateInterval, setDateInterval] = useState({from:GetCurrentDate(), to:GetCurrentDate(1)})
     const handleClickRow = (row: RegisterProp) => {
         const requestOptions = {
             method: 'POST',
@@ -58,20 +60,22 @@ const Registers = () => {
     }
     const router = useRouter()
     useEffect(() => {
-        if (!router.isReady || dateInterval == "") return;
+        setRegisters([])
+        if (!router.isReady || dateInterval.from == "" || dateInterval.to == "") return;
         let is_sypra = dropdown == "Sypra" ? true : false
         console.log(process.env.REACT_APP_URL_BASE)
-        fetch(`${process.env.REACT_APP_URL_BASE}/registers?date=${dateInterval}&is_sypra=${is_sypra}`)
+        fetch(`${process.env.REACT_APP_URL_BASE}/registers?from=${dateInterval.from}&to=${dateInterval.to}&is_sypra=${is_sypra}`)
             .then(res => res.json())
             .then(data => {
+                
                 setRegisters(data)
             })
     }, [dropdown, dateInterval, router.isReady])
 
     return (
         <Layout>
-            
-            <Table handleClick={handleClickRow} headers={ColumnsForRegister} items={CastRegisterAsViews(registers)} />
+            <DatePicker date={dateInterval} setDate={setDateInterval}></DatePicker>
+            <Table avoidColumns={['Boleta','Cupon','Factura','Cigarro','Id']} handleClick={handleClickRow} headers={ColumnsForRegister} items={CastRegisterAsViews(registers)} />
         </Layout>
     )
 }
