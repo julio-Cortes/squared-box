@@ -13,10 +13,11 @@ CREATE TABLE sqb_users(
     email varchar(50),
     password varchar(50),
     role_id int FOREIGN key references sqb_roles(id),
-    fecha_creacion datetime default  GETDATE(),
+    fecha_creacion date default  GETDATE(),
 )
 
 insert into sqb_users(email, password, role_id) values ('jck.sender@gmail.com', 'test',1)
+insert into sqb_users(email, password, role_id) values ('test@test.cl', 'test',1)
 
 
 CREATE TAble sqb_estado(
@@ -36,10 +37,10 @@ INSERT INTO sqb_empresa(descripcion) values ('Sypra')
 INSERT INTO sqb_empresa(descripcion) values ('La estrella')
 
 CREATE TABLE sqb_cuadre(
-    id_local int   ,
+    local_id int   ,
     numero_caja int   ,
-    id_vendedor int   ,
-    fecha_caja datetime   ,
+    vendedor_id int   ,
+    fecha_caja date   ,
     empresa int foreign key references sqb_empresa(id),
     total int,
     efectivo_cuadre int,
@@ -51,7 +52,7 @@ CREATE TABLE sqb_cuadre(
     credito_cuadre int,
     credito_real int,
     estado int foreign key references sqb_estado(id),
-    primary key (id_local, numero_caja, id_vendedor,fecha_caja)
+    primary key (local_id, numero_caja, vendedor_id,fecha_caja)
 );
 
 CREATE TABLE sqb_bancos(
@@ -63,25 +64,25 @@ CREATE TABLE sqb_deposito(
     id int PRIMARY KEY IDENTITY,
     monto int,
     id_cliente int,
-    fecha_creacion datetime default  GETDATE(),
-    fecha_deposito datetime,
+    fecha_creacion date default  GETDATE(),
+    fecha_deposito date,
     banco int foreign  key references sqb_bancos(id),
-    id_local int null ,
+    local_id int null ,
     numero_caja int null ,
-    id_vendedor int null ,
-    fecha_caja datetime null ,
-    foreign key (id_local, numero_caja, id_vendedor, fecha_caja) references sqb_cuadre(id_local, numero_caja, id_vendedor, fecha_caja)
+    vendedor_id int null ,
+    fecha_caja date null ,
+    foreign key (local_id, numero_caja, vendedor_id, fecha_caja) references sqb_cuadre(local_id, numero_caja, vendedor_id, fecha_caja)
 );
 
 CREATE TABLE sqb_sodexo(
     id int PRIMARY KEY IDENTITY,
     cantidad int,
     monto int,
-    id_cliente int,
-    id_local int ,
+    cliente_id int,
+    local_id int ,
     numero_caja int ,
-    id_vendedor int,
-    fecha_caja datetime,
-    foreign key (id_vendedor, id_local, numero_caja, fecha_caja) references sqb_cuadre(id_vendedor, id_local, numero_caja, fecha_caja)
+    vendedor_id int,
+    fecha_caja date,
+    foreign key (vendedor_id, local_id, numero_caja, fecha_caja) references sqb_cuadre(vendedor_id, local_id, numero_caja, fecha_caja)
 );
 

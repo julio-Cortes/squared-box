@@ -22,16 +22,18 @@ class DbInterface:
         self.cursor.close()
         self.conn.close()
 
-    def execute_query(self, query: str, returns: bool) -> [[]]:
+    def execute_query(self, query: str, returns: bool):
         self.connect()
         print(f"Executed Query:{query}")
-        self.cursor.execute(query)
+        affected_rows = self.cursor.execute(query)
+        rows = affected_rows.rowcount
         if returns:
             try:
                 rows = self.cursor.fetchall()
-                self.close_connection()
-                return rows
             except pyodbc.ProgrammingError:
-                return [[]]
+                rows=[[]]
+        else:
+            self.conn.commit()
         self.close_connection()
-        return [[]]
+
+        return rows

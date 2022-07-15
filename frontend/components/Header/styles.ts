@@ -7,6 +7,7 @@ export const HeaderContainer = tw.div`
     items-center
     justify-center
     text-white
+    sticky
 `
 
 export const TitleContainer = tw.div`

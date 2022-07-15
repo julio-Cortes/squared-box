@@ -6,7 +6,7 @@ import Row from "./Row";
 
 
 function Table<T extends MinTableItem>(props: TableProps<T>) {
-
+    console.log(props)
     return (
         <table className={'table-auto w-full '}>
             <thead>

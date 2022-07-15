@@ -27,7 +27,7 @@ const MENU_OPTIONS: MenuOption[] = [
             {
                 name: "Cuadrandose",
                 icon: Pending,
-                url: '/registers/inProgress'
+                url: '/squared-registers/'
             }
         ]
     },

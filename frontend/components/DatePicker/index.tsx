@@ -1,12 +1,20 @@
 import { Dispatch, SetStateAction } from "react"
-import { DateInterval } from "../../constants/register-table"
+import { DateInterval } from "../../constants/table";
 import { DateContainer, DateInputContainer } from "./styles"
 
 type dateProps = {
     date: DateInterval;
     setDate: Dispatch<SetStateAction<DateInterval>>;
 }
-
+export const GetCurrentDate = (differential = 0) => {
+    let separator = '-'
+    let newDate = new Date()
+    let yesterday = newDate.getDate() - 1 + differential;
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    const currentDate = `${year}${separator}${month < 10 ? `0${month}` : `${month}`}${separator}${yesterday < 10 ? `0${yesterday}` : `${yesterday}`}`
+    return currentDate
+}
 const DatePicker = ({ date, setDate }: dateProps) => {
     return (
         <DateContainer>

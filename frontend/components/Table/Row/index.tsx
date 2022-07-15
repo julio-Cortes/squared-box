@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { isPrimitive, objectValues } from "../../../constants/table";
 
 
@@ -8,6 +9,7 @@ type RowProps = {
 }
 
 const Row = ({ item, handleClick, avoidColumns }: RowProps) => {
+   
     return (
         <tr key={item} className={`
     text-lg

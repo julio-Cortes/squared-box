@@ -26,7 +26,7 @@ class RegisterRepository(object):
             return vendors
         return {}
 
-    def get_registers(self, from_date, to_date, is_sypra):
+    def get(self, from_date, to_date, is_sypra):
         vendors = self.get_vendors()
         query = f'''
 
@@ -60,32 +60,33 @@ class RegisterRepository(object):
                     if len(found_dict) == 0:
                         registers.append({
                             'id': id,
-                            'vendedor': vendors[row[2]] if row[2] in vendors else 'Vendedor no encontrado',
-                            'vendedor_id': row[2],
-                            'nro_caja': row[3],
+                            'localId':row[0],
+                            'vendedorName': vendors[row[2]] if row[2] in vendors else 'Vendedor no encontrado',
+                            'vendedorId': row[2],
+                            'numeroCaja': row[3],
                             'fecha': row[4],
                             'Boleta': {
                                 'efectivo': 0,
-                                'pago_cheque': 0,
-                                't_debito': 0,
-                                't_credito': 0,
-                                't_propia': 0,
+                                'pagoCheque': 0,
+                                'tarjetaDebito': 0,
+                                'tarjetaCredito': 0,
+                                'tarjetaPropia': 0,
                                 'total': 0,
                             },
                             'Factura': {
                                 'efectivo': 0,
-                                'pago_cheque': 0,
-                                't_debito': 0,
-                                't_credito': 0,
-                                't_propia': 0,
+                                'pagoCheque': 0,
+                                'tarjetaDebito': 0,
+                                'tarjetaCredito': 0,
+                                'tarjetaPropia': 0,
                                 'total': 0,
                             },
                             'Cigarro': {
                                 'efectivo': 0,
-                                'pago_cheque': 0,
-                                't_debito': 0,
-                                't_credito': 0,
-                                't_propia': 0,
+                                'pagoCheque': 0,
+                                'tarjetaDebito': 0,
+                                'tarjetaCredito': 0,
+                                'tarjetaPropia': 0,
                                 'total': 0,
                             },
                             'Cupon': {
@@ -109,9 +110,9 @@ class RegisterRepository(object):
                     else:
                         self.map_normal(row, found_dict[0])
             registers = (sorted(registers, key=lambda d: d['localName']))
-            return json.dumps(registers)
+            return registers
 
-        return {"message": "Connection error"}, 500
+        return []
 
     def map_normal(self, row, found_dict):
         tipo = 'Boleta'
@@ -121,10 +122,10 @@ class RegisterRepository(object):
             tipo = 'Cigarro'
         found_dict[tipo] = {
             'efectivo': row[5],
-            'pago_cheque': row[6],
-            't_debito': row[7],
-            't_credito': row[8],
-            't_propia': row[9],
+            'pagoCheque': row[6],
+            'tarjetaDebito': row[7],
+            'tarjetaCredito': row[8],
+            'tarjetaPropia': row[9],
             'total': row[11],
         }
         return found_dict
