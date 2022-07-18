@@ -1,30 +1,10 @@
 import json
 
 from db.DbConnector import DbConnector
+from repositories.AppRepository import AppRepository
 
 
-class RegisterRepository(object):
-
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(RegisterRepository, cls).__new__(cls)
-        return cls.instance
-
-    def __init__(self):
-        self.db_interface = DbConnector()
-
-    def get_vendors(self):
-        query = f'''
-        select id_vendedor, nombre from mvendedores;
-        '''
-        rows = self.db_interface.alpes_query(query, returnable=True)
-        if rows is not None:
-            vendors = {}
-            for row in rows:
-                if len(row) > 0:
-                    vendors[row[0]] = row[1]
-            return vendors
-        return {}
+class RegisterRepository(AppRepository):
 
     def get(self, from_date, to_date, is_sypra):
         vendors = self.get_vendors()

@@ -17,12 +17,10 @@ export type SquaredRegister = {
     vendedorName:string;
     fechaCaja:string;
     efectivoReal:number;
-    cigarrosReal:number;
     debitoReal:number;
     creditoReal:number;
     estado:number;
     efectivoCuadre:number;
-    cigarrosCuadre:number;
     debitoCuadre:number;
     creditoCuadre:number;
     total:number;
@@ -70,7 +68,7 @@ const SquaredRegisters = () => {
         <Layout>
             <DatePicker date={dateInterval} setDate={setDateInterval}></DatePicker>
             <Table avoidColumns={
-                ['cigarrosCuadre','cigarrosReal','localId','efectivoReal','efectivoCuadre',
+                ['localId','efectivoReal','efectivoCuadre',
             'debitoCuadre','debitoReal','vendedorId','total','creditoReal','creditoCuadre','empresaId']} 
                 items={squaredRegisters.map(r => r as unknown as SquaredRegisterAsView)} headers={Columns} handleClick={handleClick}></Table>
         </Layout>

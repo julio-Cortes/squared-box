@@ -5,6 +5,7 @@ from flask import request, current_app
 
 from db.DbConnector import DbConnector
 from models.User import User
+from repositories.AppRepository import AppRepository
 
 
 def generate_jwt(user):
@@ -16,14 +17,8 @@ def generate_jwt(user):
 
 
 
-class UserRepository(object):
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(UserRepository, cls).__new__(cls)
-        return cls.instance
+class UserRepository(AppRepository):
 
-    def __init__(self):
-        self.db_interface = DbConnector()
 
     def get(self, email: str, password: str):
         query = f'''

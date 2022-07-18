@@ -1,11 +1,11 @@
-import { Tab } from "@styled-icons/material";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import DatePicker from "../../components/DatePicker";
 import Layout from "../../components/Layout";
 import Table from "../../components/Table";
 import { GetCurrentDate, locals, PrimitiveType } from "../../constants/table";
+import { Dropdown } from 'semantic-ui-react'
 
 export interface RegisterProp {
     id: PrimitiveType
@@ -21,29 +21,29 @@ export interface RegisterProp {
     Cupon: CouponSell
 
 }
-interface RegisterPropForView{
+interface RegisterPropForView {
     id: PrimitiveType
     vendedorName: string,
-    vendedorId:number,
-    numeroCaja:number,
+    vendedorId: number,
+    numeroCaja: number,
     fecha: string,
     localName: string
 }
-function CastRegisterAsViews( registers:RegisterProp[]){
-    return registers.map( r => r as unknown as RegisterPropForView)
+function CastRegisterAsViews(registers: RegisterProp[]) {
+    return registers.map(r => r as unknown as RegisterPropForView)
 }
 const Registers = () => {
     const [dropdown, setDropdown] = useState(locals[0]);
     const [registers, setRegisters] = useState<Array<RegisterProp>>([]);
-    const [dateInterval, setDateInterval] = useState({from:GetCurrentDate(), to:GetCurrentDate(1)})
+    const [dateInterval, setDateInterval] = useState({ from: GetCurrentDate(), to: GetCurrentDate(1) })
     const handleClickRow = (row: RegisterPropForView) => {
         router.push({
-            pathname:`registers/${row.id}`, 
+            pathname: `registers/${row.id}`,
             query: {
-                register:JSON.stringify(registers.find( el => el.id===row.id)),
-                is_sypra:dropdown == "Sypra" ? true : false
+                register: JSON.stringify(registers.find(el => el.id === row.id)),
+                is_sypra: dropdown == "Sypra" ? true : false
             }
-            })
+        })
 
 
     }
@@ -62,7 +62,8 @@ const Registers = () => {
     return (
         <Layout>
             <DatePicker date={dateInterval} setDate={setDateInterval}></DatePicker>
-            <Table avoidColumns={['localId','Boleta','Cupon','Factura','Cigarro','Id']} handleClick={handleClickRow} headers={ColumnsForRegister} items={CastRegisterAsViews(registers)} />
+
+            <Table avoidColumns={['localId', 'Boleta', 'Cupon', 'Factura', 'Cigarro', 'Id']} handleClick={handleClickRow} headers={ColumnsForRegister} items={CastRegisterAsViews(registers)} />
         </Layout>
     )
 }
@@ -94,12 +95,12 @@ interface CouponSell {
 const ColumnsForRegister = {
     id: "Id",
     vendedorName: 'Vendedor',
-    vendedorId:"Id vendedor",
-    numeroCaja:'Numero Caja',
+    vendedorId: "Id vendedor",
+    numeroCaja: 'Numero Caja',
     fecha: 'Fecha',
     localName: "Local",
 }
 
 
 
-export default  Registers;
+export default Registers;

@@ -39,12 +39,10 @@ class SquaredRegistersView(FlaskView):
                                                  fecha_caja=fecha_formatted,
                                                  empresa_id=empresa,
                                                  efectivo_real=squared_register['efectivoReal'],
-                                                 cigarros_real=squared_register['cigarrosReal'],
                                                  debito_real=squared_register['debitoReal'],
                                                  credito_real=squared_register['debitoCuadre'],
                                                  estado=1,
                                                  efectivo_cuadre=squared_register['efectivoCuadre'],
-                                                 cigarros_cuadre=squared_register['cigarrosCuadre'],
                                                  debito_cuadre=squared_register['debitoCuadre'],
                                                  credito_cuadre=squared_register['creditoCuadre']
                                                  )

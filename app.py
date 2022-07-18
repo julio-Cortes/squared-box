@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, make_response, url_for, send_from_directory
 
+from controllers.ApiView import ApiView
 from controllers.RegistersView import RegistersView
 from controllers.SquaredRegistersView import SquaredRegistersView
 from controllers.UsersView import UsersView
@@ -16,10 +17,11 @@ user_controller = UsersView()
 wsgi_app = app.wsgi_app
 register_controller = RegistersView()
 squared_register_controller = SquaredRegistersView()
-
+app_controller = ApiView()
 squared_register_controller.register(app)
 register_controller.register(app)
 user_controller.register(app)
+app_controller.register(app)
 
 CORS(app)
 

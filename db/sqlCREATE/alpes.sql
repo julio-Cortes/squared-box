@@ -45,8 +45,6 @@ CREATE TABLE sqb_cuadre(
     total int,
     efectivo_cuadre int,
     efectivo_real int,
-    cigarros_cuadre int,
-    cigarros_real int,
     debito_cuadre int,
     debito_real int,
     credito_cuadre int,
@@ -73,6 +71,19 @@ CREATE TABLE sqb_deposito(
     fecha_caja date null ,
     foreign key (local_id, numero_caja, vendedor_id, fecha_caja) references sqb_cuadre(local_id, numero_caja, vendedor_id, fecha_caja)
 );
+
+CREATE TABLE sqb_sub_medio(
+    id int PRIMARY KEY IDENTITY,
+    monto_real int,
+    monto_cuadre int,
+    local_id int ,
+    numero_caja int ,
+    vendedor_id int,
+    fecha_caja date,
+    sub_medio_id int,
+    foreign key (local_id, numero_caja, vendedor_id, fecha_caja) references sqb_cuadre(local_id, numero_caja, vendedor_id, fecha_caja),
+    foreign key (sub_medio_id) references sub_medios_pago(id_sub_medio)
+)
 
 CREATE TABLE sqb_sodexo(
     id int PRIMARY KEY IDENTITY,
